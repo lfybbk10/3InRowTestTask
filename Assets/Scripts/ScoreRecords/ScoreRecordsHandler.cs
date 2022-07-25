@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class ScoreRecordsHandler : MonoBehaviour
@@ -59,7 +60,15 @@ public class ScoreRecordsHandler : MonoBehaviour
     
     private void loadFromFile()
     {
-        _scoreRecords = CSVTools.LoadRecordsFromFile(Application.persistentDataPath+"/scoreRecords.csv");
+        try
+        {
+            _scoreRecords = CSVTools.LoadRecordsFromFile(Application.persistentDataPath + "/scoreRecords.csv");
+        }
+        catch (FileNotFoundException e)
+        {
+            File.Create(Application.persistentDataPath + "/scoreRecords.csv");
+        }
+        
         
         _scoreRecords.Sort();
         _scoreRecords.Reverse();
