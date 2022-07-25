@@ -1,11 +1,14 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class ScoreRecordsPresenter : MonoBehaviour
 {
     [SerializeField] private ScoreRecordView _scoreRecordViewPrefab;
     [SerializeField] private GameObject _header;
+    [SerializeField] private Button _toMenu;
     private ScoreRecordsHandler _scoreRecordsHandler;
     private Canvas _mainCanvas;
 
@@ -15,6 +18,8 @@ public class ScoreRecordsPresenter : MonoBehaviour
     {
         _scoreRecordsHandler = FindObjectOfType<ScoreRecordsHandler>();
         _mainCanvas = FindObjectOfType<Canvas>();
+        
+        _toMenu.onClick.AddListener((() => SceneManager.LoadScene(2)));
         
         GenerateScoreRecordViews();
     }

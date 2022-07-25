@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ScoreRecordsHandler : MonoBehaviour
 {
+    private static ScoreRecordsHandler instance;
+    
     private List<ScoreRecord> _scoreRecords = new List<ScoreRecord>();
     public ScoreRecord NewScoreRecord { get; set; }
 
@@ -17,7 +19,14 @@ public class ScoreRecordsHandler : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad (this);
+         
+        if (instance == null) {
+            instance = this;
+        } else {
+            DestroyObject(gameObject);
+        }
+        
         if(_scoreRecords.Count==0)
             loadFromFile();
     }
